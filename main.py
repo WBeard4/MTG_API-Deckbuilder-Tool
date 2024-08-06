@@ -11,6 +11,7 @@ from mtgsdk import Subtype
 from mtgsdk import Changelog
 
 import sys
+from os import listdir
 
 # Created a seperate decklist class, which deals with finding, adding and removing cards from the opened decklist
 from decklist import Decklist
@@ -45,7 +46,8 @@ def find_card():
 def open_decklist():
     # If the input decklist exists in saved_decklists folder, open the file, then create a list using the multiverse_ids, which will be the decklist for class creation
     # Also passes the decklist name to the class
-    decklist_name = input("Please input the name of the decklist: ")
+    show_saved_decklists()
+    decklist_name = input("Please input the name of the decklist you would like to edit: ")
     try:
         decklist_contents = []
         with open(f"saved_decklists\{decklist_name}.txt", "r") as file:
@@ -69,7 +71,10 @@ def new_decklist():
 
 def show_saved_decklists():
     # Show the names of the decklists saved in saved_decklists folder
-    pass
+    print("Saved Decklists: ")
+    files = listdir('saved_decklists\\')
+    for file in files:
+        print("    ", file.strip(".txt"))
 
 def delete_decklist():
     # Delete decklist from saved_decklists folder
@@ -86,14 +91,14 @@ def main():
         3. Show Saved Decklists
         4. Delete Decklist
         9. Exit Program
-    '''))
+    :- '''))
 
         if menu_choice == 1:
             open_decklist()
         elif menu_choice == 2:
             new_decklist()
         elif menu_choice == 3:
-            show_saved_decklists
+            show_saved_decklists()
         elif menu_choice == 4:
             delete_decklist()
         elif menu_choice == 9:
