@@ -17,34 +17,39 @@ class Decklist:
             file.write(card.id + '\n')
 
     def add_to_decklist(self):
-        card_to_add = input("Please input the name of the card you would like to add: ")
-        try:
-            print(f"Searching for {card_to_add}")
-            cards = Card.where(name=card_to_add).all()
-            print(f"Found {len(cards)} cards")
-            counter = 1
-            for card in cards:
-                try:
-                    if card.name == card_to_add:
-                        print(card.name)
-                        print(card.set)
-                        print(card.id)
-                        self.decklist.append(card)
-                        self.save_decklist(card)
-                        print(f"{card.name} added to decklist")
-                        break
-                    else:
-                        print(f"Loop number {counter}. {card.name}, {card.set}")
-                        counter +=1
-                except AttributeError as e: # Some versions dont have a multiverse_id, so this will skip those
-                    print(f"Attribute error {e}")
-                    continue
-                except Exception as error:
-                    print("Decklist.add_to_decklist error:", error)
-                except:
-                    print("Multiverse_id loop error")
-        except:
-            print("it broke")
+        while True:
+            card_to_add = input("Please input the name of the card you would like to add: ").title().strip()
+            try:
+                print(f"Searching for {card_to_add}")
+                cards = Card.where(name=card_to_add).all()
+                print(f"Found {len(cards)} cards")
+                card_added = False
+                for card in cards:
+                    try:
+                        if card.name == card_to_add:
+                            print(card.name)
+                            print(card.set)
+                            print(card.id)
+                            self.decklist.append(card)
+                            self.save_decklist(card)
+                            print(f"{card.name} added to decklist")
+                            card_added = True
+                            break
+
+                        else:
+                            print(f"Similar card found: {card.name}, {card.set}")
+                    except AttributeError as e: # Some versions dont have a multiverse_id, so this will skip those
+                        print(f"Attribute error {e}")
+                        continue
+                    except Exception as error:
+                        print("Decklist.add_to_decklist error:", error)
+            except:
+                print("it broke")
+            
+            if card_added:
+                break
+            else:
+                print(f"Unable to find {card_to_add}, please try again and make sure the card is entered correctly")
 
     def remove_from_decklist():
         pass

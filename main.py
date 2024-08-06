@@ -10,6 +10,8 @@ from mtgsdk import Supertype
 from mtgsdk import Subtype
 from mtgsdk import Changelog
 
+import sys
+
 # Created a seperate decklist class, which deals with finding, adding and removing cards from the opened decklist
 from decklist import Decklist
 # Created a deck_construction function in a different file, to keep things tidy. this will handle most of the Decklist class calls
@@ -76,24 +78,28 @@ def delete_decklist():
 def main():
     #find_card() # temp function here to test
     # Creating a basic menu, that allows the user to open previously saved decklists, create a new one, and add or remove cards from the decklists
-    menu_choice = int(input('''
-Please choose from the following options: 
-    1. Open Decklist
-    2. Create New Decklist
-    3. Show Saved Decklists
-    4. Delete Decklist
-'''))
+    while True:
+        menu_choice = int(input('''
+    Please choose from the following options: 
+        1. Open Decklist
+        2. Create New Decklist
+        3. Show Saved Decklists
+        4. Delete Decklist
+        9. Exit Program
+    '''))
 
-    if menu_choice == 1:
-        open_decklist()
-    elif menu_choice == 2:
-        new_decklist()
-    elif menu_choice == 3:
-        show_saved_decklists
-    elif menu_choice == 4:
-        delete_decklist()
-    else:
-        print("Invalid choice, please choose again")
+        if menu_choice == 1:
+            open_decklist()
+        elif menu_choice == 2:
+            new_decklist()
+        elif menu_choice == 3:
+            show_saved_decklists
+        elif menu_choice == 4:
+            delete_decklist()
+        elif menu_choice == 9:
+            sys.exit("Exiting program")
+        else:
+            print("Invalid choice, please choose again")
         
 
 
