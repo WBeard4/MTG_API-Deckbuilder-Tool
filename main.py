@@ -97,7 +97,5 @@ Please choose from the following options:
         
 
 
-    decklist = open_decklist()
-
 
 main()
