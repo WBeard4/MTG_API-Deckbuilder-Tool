@@ -18,7 +18,7 @@ from decklist import Decklist
 # Created a deck_construction function in a different file, to keep things tidy. this will handle most of the Decklist class calls
 from deck_construction import deck_construction
 
-def find_card():
+def find_card():# This is a test function, so I can quickly find info needed on a card, not for use in final product
     query = input("Please input a card name: ").title()
 
     try:
@@ -47,7 +47,7 @@ def open_decklist():
     # If the input decklist exists in saved_decklists folder, open the file, then create a list using the multiverse_ids, which will be the decklist for class creation
     # Also passes the decklist name to the class
     show_saved_decklists()
-    decklist_name = input("Please input the name of the decklist you would like to edit: ")
+    decklist_name = input("Please input the name of the decklist you would like to edit: ").title()
     try:
         decklist_contents = []
         with open(f"saved_decklists\{decklist_name}.txt", "r") as file:

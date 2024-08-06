@@ -7,7 +7,6 @@ class Decklist:
 
         # This will convert the cards from the multiverse_id to the Card class from mtgsdk,if the decklist is a previously saved decklist
         if self.decklist != []:
-            print(self.decklist)
             for count, card in enumerate(self.decklist):
                 self.decklist[count] = Card.find(card)
                 print(self.decklist[count])
@@ -19,6 +18,8 @@ class Decklist:
     def add_to_decklist(self):
         while True:
             card_to_add = input("Please input the name of the card you would like to add: ").title().strip()
+            if "The" in card_to_add and not card_to_add.startswith("The "):
+                card_to_add = card_to_add.replace("The", "the")
             try:
                 print(f"Searching for {card_to_add}")
                 cards = Card.where(name=card_to_add).all()
@@ -26,6 +27,7 @@ class Decklist:
                 card_added = False
                 for card in cards:
                     try:
+                        # Making sure the card name is an exact match, otherwise it could add a card with part of the name
                         if card.name == card_to_add:
                             print(card.name)
                             print(card.set)
